@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+    font-family: Roboto;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+}
+
+header {
+    background-color: #149903;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2em; /* Tamanho da fonte */
+}
+
+
+main {
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+#barraPesquisa {
+    width: 100%;
+    padding: 10px;
+    border: none; /* Remove a borda padrão */
+    border-bottom: 1px solid #000000; /* Adiciona uma linha por baixo */
+    outline: none; /* Remove o contorno ao focar */
+    background-color: transparent; /* Fundo transparente */
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: #149903;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.button:hover {
+    background-color: #149903; /* Cor de fundo verde escuro */
+    transition-duration: 0.3s; /* transição de 0.3s para ocorrer o aumento de 1.02x */
+    transform: scale(1.02); /* Aumenta o tamanho do botão em 1.02x */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaçamento entre células */
+    margin-bottom: 20px;
+}
+
+thead th {
+    background-color: #343a40;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+tbody td {
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid #dee2e6; /* Borda cinza claro */
+}
+
+/* Estilos para as linhas ímpares da tabela */
+tbody tr:nth-child(odd) {
+    background-color: #f8f9fa;
+}
+
+/* Estilos para as linhas da tabela ao passar o mouse */
+tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Esconde elementos de aside e footer */
+aside, footer {
+    display: none; /* Não exibe esses elementos */
+}
+
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cookie-consent p {
+    margin: 0;
+}
+
+.cookie-consent a {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+.cookie-consent .btn {
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.cookie-consent .btn:hover {
+    background-color: #e6b800;
+}

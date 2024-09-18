@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Equipamentos</title>
+</head>
+<body>
+    <header>
+        <h1>Equipamentos</h1>
+    </header>
+    <main>
+        <input type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela..."><br>
+        <button class="button" onclick="window.location.href='NewEquipamento.html'">Novo equipamento</button>
+        <table id="table">
+            <thead>
+            <tr>
+                <th onclick="ordenarTabela(0)">Tipo</th>
+                <th onclick="ordenarTabela(1)">Marca</th>
+                <th onclick="ordenarTabela(2)">Configuração</th>
+                <th>Opções</th>
+            </tr>
+            </thead>
+            <tbody id="corpoTabela">
+            <!-- Linhas da tabela serão adicionadas dinamicamente aqui -->
+            </tbody>
+        </table>
+    </main>
+    <aside></aside>
+    <footer></footer>
+    <div id="cookieConsent" class="cookie-consent">
+        <p>Este site usa cookies para garantir que você tenha a melhor experiência. <a href="#">Saiba mais</a></p>
+        <button id="acceptCookies" class="btn">Aceitar</button>
+    </div>
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('get_equipamentos.php')
+                .then(response => response.json())
+                .then(data => {
+                    let tabela = document.getElementById('corpoTabela');
+                    data.forEach(equipamento => {
+                        let linha = document.createElement('tr');
+                        linha.innerHTML = `
+                            <td>${equipamento.tipo}</td>
+                            <td>${equipamento.marca}</td>
+                            <td>${equipamento.config}</td>
+                            <td><button class = "button" onclick = "window.location.href='alterarEquipamento.php?id=${equipamento.idEquipamento}'">Alterar</button>
+                            <button class = "button" onclick = "window.location.href='controller/equipamentoCont.php?id=${equipamento.idEquipamento}&acao=excluirEquipamento'">Excluir</button>
+                            </td>
+                        `;
+                        tabela.appendChild(linha);
+                    });
+                });
+        });
+
+        
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieConsent = document.getElementById('cookieConsent');
+            const acceptCookiesButton = document.getElementById('acceptCookies');
+        
+           
+            if (!localStorage.getItem('cookiesAccepted')) {
+                cookieConsent.style.display = 'flex';
+            }
+        
+            acceptCookiesButton.addEventListener('click', function() {
+                localStorage.setItem('cookiesAccepted', 'true');
+                cookieConsent.style.display = 'none';
+            });
+        });
+    </script>
+    <script src="js/Script.js"></script>
+</body>
+</html>

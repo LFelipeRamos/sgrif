@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de usuario</title>
+</head>
+<body>
+    <header>
+        <h1>Usuário</h1>
+    </header>
+    <main>
+        <input type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela..."><br>
+        <button class="button" onclick="window.location.href='newUsuario.html'">Novo usuario</button>
+        <table id="table">
+            <thead>
+            <tr>
+                <th onclick="ordenarTabela(0)">Nome</th>
+                <th onclick="ordenarTabela(1)">tipo</th>
+                <th onclick="ordenarTabela(2)">Email</th>
+                <th onclick="ordenarTabela(3)">Senha</th>
+                <th>Opções</th>
+            </tr>
+            </thead>
+            <tbody id="corpoTabela">
+            <!-- Linhas da tabela serão adicionadas dinamicamente aqui -->
+            </tbody>
+        </table>
+    </main>
+    <aside></aside>
+    <footer></footer>
+    <div id="cookieConsent" class="cookie-consent">
+        <p>Este site usa cookies para garantir que você tenha a melhor experiência. <a href="#">Saiba mais</a></p>
+        <button id="acceptCookies" class="btn">Aceitar</button>
+    </div>
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('get_usuario.php')
+                .then(response => response.json())
+                .then(data => {
+                    let tabela = document.getElementById('corpoTabela');
+                    data.forEach(usuario => {
+                        let linha = document.createElement('tr');
+                        linha.innerHTML = `
+                            <td>${usuario.nome}</td>
+                            <td>${usuario.tipo}</td>
+                            <td>${usuario.email}</td>
+                            <td>${usuario.senha}</td>
+                            <td><button class = "button" onclick = "window.location.href='alterarUsuario.php?id=${usuario.idUsuario}'">Alterar</button>
+                            <button class = "button" onclick = "window.location.href='controller/usuarioCont.php?id=${usuario.idUsuario}&acao=excluirUsuario'">Excluir</button>
+                            </td>
+                        `;
+                        tabela.appendChild(linha);
+                    });
+                });
+        });
+
+        
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieConsent = document.getElementById('cookieConsent');
+            const acceptCookiesButton = document.getElementById('acceptCookies');
+        
+           
+            if (!localStorage.getItem('cookiesAccepted')) {
+                cookieConsent.style.display = 'flex';
+            }
+        
+            acceptCookiesButton.addEventListener('click', function() {
+                localStorage.setItem('cookiesAccepted', 'true');
+                cookieConsent.style.display = 'none';
+            });
+        });
+    </script>
+    <script src="js/Script.js"></script>
+</body>
+</html>

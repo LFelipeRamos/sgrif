@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Salas</title>
+</head>
+<body>
+    <header>
+        <h1>Salas</h1>
+    </header>
+    <main>
+        <input type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela..."><br>
+        <button class="button" onclick="window.location.href='newSala.html'">Nova sala</button>
+        <table id="table">
+            <thead>
+            <tr>
+                <th onclick="ordenarTabela(0)">Nome</th>
+                <th onclick="ordenarTabela(1)">Localização</th>
+                <th onclick="ordenarTabela(2)">Capacidade</th>
+                <th>opções</th>
+                
+            </tr>
+            </thead>
+            <tbody id="corpoTabela">
+            <!-- Linhas da tabela serão adicionadas dinamicamente aqui -->
+            </tbody>
+        </table>
+    </main>
+    <aside></aside>
+    <footer></footer>
+
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('get_salas.php')
+                .then(response => response.json())
+                .then(data => {
+                    let tabela = document.getElementById('corpoTabela');
+                    data.forEach(sala => {
+                        let linha = document.createElement('tr');
+                        linha.innerHTML = `
+                            <td>${sala.nome}</td>
+                            <td>${sala.localizacao}</td>
+                            <td>${sala.capacidade}</td>
+                            <td><button class = "button" onclick = "window.location.href='alterarSala.php?id=${sala.idSala}'">Alterar</button>
+                            <button class = "button" onclick = "window.location.href='controller/salaCont.php?id=${sala.idSala}&acao=excluirSala'">Excluir</button>
+                            <button class = "button" onclick = "window.location.href='equipamentoSala.php?id=${sala.idSala}'">Inserir Equipamento</button></td>
+                        `;
+                        tabela.appendChild(linha);
+                    });
+                });
+        });
+
+        
+    </script>
+    <script src="js/Script.js"></script>
+</body>
+</html>
