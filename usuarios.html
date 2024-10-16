@@ -2,31 +2,85 @@
 <html lang="pt-br">
 <head>
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de usuario</title>
 </head>
 <body>
-    <header>
-        <h1>Usuário</h1>
-    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed" >
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">SGRIF</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="home.php" href="#">Tela inicial</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Gerênciar
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Reserva</a></li>
+                  <li><a class="dropdown-item" href="salas.html">Sala</a></li>
+                  <li><a class="dropdown-item" href="equipamentos.html">Equipamento</a></li>
+                  <li><a class="dropdown-item" href="usuarios.html">Usuario</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Instituto Federal do Parana - Campus jacarezinho</a>
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+      </nav>
     <main>
-        <input type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela..."><br>
-        <button class="button" onclick="window.location.href='newUsuario.html'">Novo usuario</button>
-        <table id="table">
-            <thead>
-            <tr>
-                <th onclick="ordenarTabela(0)">Nome</th>
-                <th onclick="ordenarTabela(1)">tipo</th>
-                <th onclick="ordenarTabela(2)">Email</th>
-                <th onclick="ordenarTabela(3)">Senha</th>
-                <th>Opções</th>
-            </tr>
-            </thead>
-            <tbody id="corpoTabela">
-            <!-- Linhas da tabela serão adicionadas dinamicamente aqui -->
-            </tbody>
-        </table>
+        <div class="container p-2 my-2">
+        
+            <div class="row justify-content-center">
+              <div class="col-lg-8 text-center">
+                <h1 class="h1">Manutenção de Usuários</h1>
+                <h3 class="h3">Sistema de Gerenciamento de Reservas</h3>
+              </div>
+            </div>
+        </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div>
+                        <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn btn-success btn-sm" onclick="window.location.href='newUsuario.html'">Novo Usuario</button>
+                    </div>
+                </div>
+            </div>
+        <div class="container-fluid mt-3">
+
+            <table class="table table-houver table-sm" id="table">
+                <thead class="table-dark">
+                <tr>
+                    <th class="text-center" onclick="ordenarTabela(0)">Nome</th>
+                    <th class="text-center" onclick="ordenarTabela(1)">tipo</th>
+                    <th class="text-center" onclick="ordenarTabela(2)">Email</th>
+                    <th class="text-center" onclick="ordenarTabela(3)">Senha</th>
+                    <th class="text-center" >Opções</th>
+                </tr>
+                </thead>
+                <tbody id="corpoTabela">
+                <!-- Linhas da tabela serão adicionadas dinamicamente aqui -->
+                </tbody>
+            </table>
+        </div>
+       
     </main>
     <aside></aside>
     <footer></footer>
@@ -43,11 +97,11 @@
                     data.forEach(usuario => {
                         let linha = document.createElement('tr');
                         linha.innerHTML = `
-                            <td>${usuario.nome}</td>
-                            <td>${usuario.tipo}</td>
-                            <td>${usuario.email}</td>
-                            <td>${usuario.senha}</td>
-                            <td><button class = "button" onclick = "window.location.href='alterarUsuario.php?id=${usuario.idUsuario}'">Alterar</button>
+                            <td class="text-center">${usuario.nome}</td>
+                            <td class="text-center">${usuario.tipo}</td>
+                            <td class="text-center">${usuario.email}</td>
+                            <td class="text-center">${usuario.senha}</td>
+                            <td class="text-center"><button class = "btn btn-lineout-warning btn-sm" onclick = "window.location.href='alterarUsuario.php?id=${usuario.idUsuario}'">Alterar</button>
                             <button class = "button" onclick = "window.location.href='controller/usuarioCont.php?id=${usuario.idUsuario}&acao=excluirUsuario'">Excluir</button>
                             </td>
                         `;
@@ -74,6 +128,7 @@
             });
         });
     </script>
-    <script src="js/Script.js"></script>
+    <script src="style/Script.js"></script>
+    <script src="style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

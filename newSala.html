@@ -3,28 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Novo Equipamento</title>
+    <title>Adicionar Nova Sala</title>
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
 </head>
 <body>
-    <header>
-        <h1>Adicionar Nova Sala</h1>
-    </header>
+    
     <main>
-        <form id="formNovoEquipamento" method="POST" action="controller/salaCont.php">
-            <input type="hidden" name="acao" id="acao" value="novaSala">
-            <label for="tipo">Nome:</label>
-            <input type="text" id="nome" name="nome" required><br><br>
+        <div class="container-fluid">
 
-            <label for="location">Localização:</label>
-            <input type="text" id="location" name="location" required><br><br>
+            <div class="row col-4">
+                <form id="formNovoEquipamento" method="POST" action="controller/salaCont.php">
+                    <div class="form-control">
+                        <input type="hidden" name="acao" id="acao" value="novaSala">
+                        <div class="mt-3 mb-3">
+                            <label class="form-label" for="tipo">Nome:</label>
+                            <input class="form-control" type="text" id="nome" name="nome" required>
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-label" for="location">Localização:</label>
+                            <input class="form-control" type="text" id="location" name="location" required>
+                        </div>
+                        <div class="mt-3">
+                            
+                        <label class="form-label" for="capacidade">Capacidade:</label>
+                        <input class="form-control" type="number" id="capacidade" name="capacidade" required>
+                        
+                        </div>
+                        
 
-            <label for="capacidade">Capacidade:</label>
-            <input type="number" id="capacidade" name="capacidade" required><br><br>
 
-            <button class="button">Adicionar Sala</button>
-        </form>
-        <button class="button" onclick="window.location.href='salas.html'">Voltar</button>
+                        <button class="btn btn-houver btn-success mt-2 mb-2">Adicionar Sala</button>
+                    </div>
+                    
+                </form>
+            </div>
+                
+            <button class="btn btn-houver btn-success" onclick="window.location.href='salas.html'">Voltar</button>
+        </div>
     </main>
     <aside></aside>
     <footer></footer>

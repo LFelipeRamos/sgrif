@@ -8,7 +8,7 @@
             $equipamento-> idEquipamento = $_POST["selectEquipamento"];
             $equipamento-> qtdeTotal = $_POST["quantidade"];
             $equipamento->qtdeOperavel = $_POST["quantidadeOperavel"];
-            $equipamento->status = $_POST["status"];
+            
             $dao = new EquipamentoSalaDao();
             $dao->inserirEquipamento($equipamento);
         }

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Novo Equipamento</title>
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
 </head>
 <body>
     <header>
         <h1>Adicionar Novo Equipamento</h1>
     </header>
     <main>
-        <form id="formNovoEquipamento" method="POST" action="controller/equipamentoCont.php">
+        <form class="" id="formNovoEquipamento" method="POST" action="controller/equipamentoCont.php">
             <input type="hidden" name="acao" id="acao" value="novoEquipamento">
             <label for="tipo">Tipo:</label>
             <input type="text" id="tipo" name="tipo" required><br><br>
@@ -19,9 +20,9 @@
             <label for="marca">Marca:</label>
             <input type="text" id="marca" name="marca" required><br><br>
 
-            <label for="config">Configuração:</label>
+            <label for="config">des:</label>
             <input type="text" id="config" name="config" required><br><br>
-
+            
             <button class="button">Adicionar Equipamento</button>
         </form>
         <button class="button" onclick="window.location.href='equipamentos.html'">Voltar</button>

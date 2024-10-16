@@ -4,6 +4,6 @@
         public $idEquipamento;
         public $qtdeTotal;
         public $qtdeOperavel;
-        public $status;
+      
     }
 ?>
