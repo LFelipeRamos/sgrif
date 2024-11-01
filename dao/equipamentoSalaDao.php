@@ -24,6 +24,7 @@
             $parametros = array(
                 "idEquipamento" => $eSala->idEquipamento,
                 "idSala"=>$eSala->idSala
+                
             );
             $query = "DELETE FROM equipamento_sala WHERE idEquipamento = :idEquipamento AND idSala = :idSala";
             Conexao::executarComParametros($query, $parametros);

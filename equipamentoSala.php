@@ -74,7 +74,7 @@
                    
                     <th class="text-center" onclick="ordenarTabela(0)">Equipamento</th>
                     <th class="text-center" onclick="ordenarTabela(1)">Marca</th>
-                    <th class="text-center" onclick="ordenarTabela(2)">Qantidade Total</th>
+                    <th class="text-center" onclick="ordenarTabela(2)">Quantidade Total</th>
                     <th class="text-center" onclick="ordenarTabela(3)">quantidade Operavel</th>
                     
                     <th class="text-center">Opções</th>

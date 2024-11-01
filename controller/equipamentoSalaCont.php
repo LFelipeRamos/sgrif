@@ -13,12 +13,15 @@
             $dao->inserirEquipamento($eSala);
         }
         function excluirEquipamento(){
-            $eSala = New EquipamentoSala();
-            $eSala-> idSala = $_GET["id"];
+            $eSala = new EquipamentoSala();
+            $eSala->idSala = $_GET["id"];
             $eSala->idEquipamento = $_GET["idEquipamento"];
-            $dao = New EquipamentoSalaDao();
+            $dao = new EquipamentoSalaDao();
             $dao->excluirEquipamento($eSala);
+            header("Location: ../equipamentoSala.php?id=" . $eSala->idSala);
         }
+  
+        
         
         function getEquipamentoSala(){
 
