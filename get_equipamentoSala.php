@@ -1,14 +1,26 @@
 <?php
 include 'util/conexao.php';
+include 'model/equipamentoSala.php';
+session_start();
 
-$query = "SELECT e.nome, e.qtdeTotal, e.qtdeOperavel,
-coalesce(group_concat(e.tipo,',') , 'Sem Equipamentos')as tipos_equipamentos
-FROM equipamento e
-left join equipamento_sala es on es.idSala = s.idSala
-left join equipamento e on e.idEquipamento = es.idEquipamento
-group by 1, 2, 3 ";
-$stmt = Conexao::executar($query);
+// Corrige o uso do método $_GET
 
-$eSala = $stmt->fetchAll(PDO::FETCH_ASSOC);
-echo json_encode($eSala);
+
+try {
+    $eSala= new EquipamentoSala();
+    $eSala->idSala = $_GET["id"];
+    $parametros = array(
+        "idSala" => $eSala->idSala
+    );
+
+    // Prepara a consulta com proteção contra SQL Injection
+    $query = "SELECT e.marca, e.tipo, es.qtdeTotal,es.qtdeOperavel, e.idEquipamento, es.idSala FROM equipamento_sala es INNER JOIN equipamento e ON e.idEquipamento = es.idEquipamento WHERE es.idSala = :idSala";
+
+    $stmt=Conexao::executarComParametros($query, $parametros);
+    $eSala = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($eSala);
+} catch (PDOException $e) {
+    // Em caso de erro, retorna uma mensagem de erro
+    echo json_encode(['error' => $e->getMessage()]);
+}
 ?>

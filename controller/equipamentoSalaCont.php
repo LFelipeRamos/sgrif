@@ -3,22 +3,35 @@
     include_once ("../dao/equipamentoSalaDao.php");
     class EquipamentoSalaCont{
         function inserirEquipamento(){
-            $equipamento = New EquipamentoSala();
-            $equipamento-> idSala = $_POST["idSala"];
-            $equipamento-> idEquipamento = $_POST["selectEquipamento"];
-            $equipamento-> qtdeTotal = $_POST["quantidade"];
-            $equipamento->qtdeOperavel = $_POST["quantidadeOperavel"];
+            $eSala = New EquipamentoSala();
+            $eSala-> idSala = $_POST["idSala"];
+            $eSala-> idEquipamento = $_POST["selectEquipamento"];
+            $eSala-> qtdeTotal = $_POST["quantidade"];
+            $eSala->qtdeOperavel = $_POST["quantidadeOperavel"];
             
             $dao = new EquipamentoSalaDao();
-            $dao->inserirEquipamento($equipamento);
+            $dao->inserirEquipamento($eSala);
         }
         function excluirEquipamento(){
-            $equipamento = New EquipamentoSala();
-            $equipamento-> idSala = $_GET["id"];
-            $equipamento->idEquipamento = $_POST["selectEquipamento"];
+            $eSala = New EquipamentoSala();
+            $eSala-> idSala = $_GET["id"];
+            $eSala->idEquipamento = $_GET["idEquipamento"];
             $dao = New EquipamentoSalaDao();
-            $dao->excluirEquipamento($equipamento);
+            $dao->excluirEquipamento($eSala);
         }
+        
+        function getEquipamentoSala(){
+
+            $eSala = New EquipamentoSala();
+            $eSala->idSala = $_GET["id"];
+            $dao = New EquipamentoSalaDao();
+            $data = $dao->getEquipamentoSala($eSala);
+            echo json_encode($data);
+            
+            
+     
+        }
+
     }
 
     $controle = new EquipamentoSalaCont();
@@ -27,6 +40,8 @@
         $acao = $_GET["acao"];
         if ($acao == "excluirEquipamento") {
         $controle->excluirEquipamento();
+        }if ($acao == "getEquipamentoSala") {
+            $controle->getEquipamentoSala();
         }
     }else {#recebe pelo form POST
         $acao = $_POST["acao"];
@@ -34,4 +49,5 @@
         $controle->inserirEquipamento();
         }
     }
+    
 ?>

@@ -19,9 +19,7 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="home.php" href="#">Tela inicial</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
+            
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Gerênciar
@@ -31,9 +29,7 @@
                   <li><a class="dropdown-item" href="salas.html">Sala</a></li>
                   <li><a class="dropdown-item" href="equipamentos.html">Equipamento</a></li>
                   <li><a class="dropdown-item" href="usuarios.html">Usuario</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+                  </ul>
               </li>
               <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Instituto Federal do Parana - Campus jacarezinho</a>
@@ -60,9 +56,55 @@
                     <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">
                 </div>
                 <div class="mt-2">
-                    <button class="btn btn-success btn-sm" onclick="window.location.href='NewSala.html'">Nova Sala</button>
+                    <button class="btn btn-success btn-sm"data-bs-toggle="modal" data-bs-target="#newSala">Nova Sala
+                    </button>
                 </div>
             </div>
+        </div>
+
+        <div class="modal" id="newSala">
+          <div class="modal-dialog">
+            <div class="modal-content">
+        
+              <!-- Modal Header -->
+              <div class="modal-header  bg-dark">
+                <h4 class="modal-title text-white">Nova Sala</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+        
+              <!-- Modal body -->
+              <div class="modal-body">
+                <form id="formNovoEquipamento" method="POST" action="controller/salaCont.php">
+                  <div class="form-control">
+                      <input type="hidden" name="acao" id="acao" value="novaSala">
+                      <div class="mt-3 mb-3">
+                          <label class="form-label" for="tipo">Nome:</label>
+                          <input class="form-control" type="text" id="nome" name="nome" required>
+                      </div>
+                      <div class="mt-3">
+                          <label class="form-label" for="location">Localização:</label>
+                          <input class="form-control" type="text" id="location" name="location" required>
+                      </div>
+                      <div class="mt-3">
+                          
+                      <label class="form-label" for="capacidade">Capacidade:</label>
+                      <input class="form-control" type="number" id="capacidade" name="capacidade" required>
+                      
+                      </div>
+                      <input type="submit" class="btn btn-houver btn-sm btn-success mt-3" value="Inserir">
+                      <button type="button" class="btn btn-danger btn-sm mt-3" data-bs-dismiss="modal">Fechar</button>
+                  </div>
+                  
+              </form>
+              </div>
+        
+              <!-- Modal footer -->
+              <div class="modal-footer">
+               
+              </div>
+        
+            </div>
+          </div>
         </div>
 
         <div class="container-fluid mt-3 mb-3">

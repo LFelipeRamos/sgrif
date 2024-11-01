@@ -112,7 +112,6 @@ CREATE TABLE IF NOT EXISTS `sgrif`.`equipamento_sala` (
   `idEquipamento` INT(11) NOT NULL,
   `qtdeTotal` INT NOT NULL,
   `qtdeOperavel` INT NOT NULL,
-  `status` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idSala`, `idEquipamento`),
   INDEX `fk_sala_has_equipamento_equipamento1_idx` (`idEquipamento` ASC),
   INDEX `fk_sala_has_equipamento_sala1_idx` (`idSala` ASC),

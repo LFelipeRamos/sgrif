@@ -19,9 +19,7 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="home.php" href="#">Tela inicial</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
+              
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Gerênciar
@@ -31,8 +29,7 @@
                   <li><a class="dropdown-item" href="salas.html">Sala</a></li>
                   <li><a class="dropdown-item" href="equipamentos.html">Equipamento</a></li>
                   <li><a class="dropdown-item" href="usuarios.html">Usuario</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  
                 </ul>
               </li>
               <li class="nav-item">
@@ -48,7 +45,7 @@
         <div  class="container-fluid" id="fomularioEquipamentoSala" >
             <form method="post" action="controller/equipamentoSalaCont.php" >
                 <input type="hidden" name="acao" value="inserirEquipamento">
-                <input type="hidden" name="idSala" value = "<?php echo $_GET['id']; ?>">
+                <input type="hidden" name="idSala" value = "1">
 
                 <div class="form-control">
                     <div class="mt-3 mb-3"></div>
@@ -66,19 +63,20 @@
                         <label class="form-label" for="quantidadeOperavel">Quantidade operavel:</label>
                         <input class="form-control" type="number" name="quantidadeOperavel" id="quantidadeOperavel" required>
                     </div>
-                   <button class="btn btn-success mt-2 mb-2">Inserir</button>
+                   <input type="submit" value="inserir" class="btn btn-success mt-2 mb-2">
                 </div>
             </form>
         </div>
         <div class="container-fluid mt-3">
-            <table class="table table-houver" id="table">
+            <table class="table table-houver table-sm" id="table">
                 <thead class="table-dark">
                 <tr>
-                    <th class="text-center" onclick="ordenarTabela(0)">Sala</th>
-                    <th class="text-center" onclick="ordenarTabela(1)">Equipamento</th>
+                   
+                    <th class="text-center" onclick="ordenarTabela(0)">Equipamento</th>
+                    <th class="text-center" onclick="ordenarTabela(1)">Marca</th>
                     <th class="text-center" onclick="ordenarTabela(2)">Qantidade Total</th>
                     <th class="text-center" onclick="ordenarTabela(3)">quantidade Operavel</th>
-                    <th class="text-center" onclick="ordenarTabela(4)">Status</th>
+                    
                     <th class="text-center">Opções</th>
                 </tr>
                 </thead>
@@ -107,19 +105,21 @@
     });
 
     //ARRUMAR TABELA E O GET equipamento sala
+    
 
     document.addEventListener('DOMContentLoaded', function() {
-            fetch('get_equipamentoSala.php')
+            fetch('controller/equipamentoSalaCont.php?id=<?php echo $_GET["id"]?>&acao=getEquipamentoSala')
                 .then(response => response.json())
                 .then(data => {
                     let tabela = document.getElementById('corpoTabela');
                     data.forEach(eSala => {
                         let linha = document.createElement('tr');
-                        linha.innerHTML = `
-                            <td>${eSala.nome}</td>
-                            <td>${eSala}</td>
-                            <td>${equipamento.config}</td>
-                            <td><button class = "button" onclick = "window.location.href='controller/equipamentoSalaCont.php?id=${equipamento.idEquipamento}&acao=excluirEquipamento&idEquipamento='">Excluir</button>
+                        linha.innerHTML =` 
+                            <td class="text-center">${eSala.tipo}</td>
+                            <td class="text-center">${eSala.marca}</td>
+                            <td class="text-center">${eSala.qtdeOperavel}</td>
+                            <td class="text-center">${eSala.qtdeTotal}</td>
+                            <td class="text-center"><button class ="btn btn-houver btn-danger btn-sm" onclick = "window.location.href='controller/equipamentoSalaCont.php?id=${eSala.idSala}&acao=excluirEquipamento&idEquipamento=${eSala.idEquipamento}'">Excluir</button>
                             </td>
                         `;
                         tabela.appendChild(linha);
@@ -128,7 +128,7 @@
         });
 
 </script>
-<script src="js/Script.js"></script>
+<script src="style/Script.js"></script>
 <script src="style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -29,7 +29,7 @@
                 Conexao::executarComParametros($query, $parametros);
                 echo "<script>alert('Equipamento excluído com sucesso!'); window.location.href='../Equipamentos.html';</script>";
             } catch (PDOException $e) {
-                echo "<script>alert('Erro ao excluir equipamento: " . $e->getMessage() . "'); window.location.href='../Equipamentos.html';</script>";
+                echo "<script>alert('Erro ao excluir equipamento! o equipamento não pode ser excluído pois está vinculado a uma sala'); window.location.href='../Equipamentos.html';</script>";
             }
         }
 

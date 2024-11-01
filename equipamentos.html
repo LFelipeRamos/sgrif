@@ -8,7 +8,7 @@
     <title>Gerenciamento de Equipamentos</title>
 </head>
 <body> 
-  <header class=""></header> 
+   
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">SGRIF</a>
@@ -20,9 +20,7 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="home.php" href="#">Tela inicial</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
+              
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Gerênciar
@@ -32,8 +30,6 @@
                   <li><a class="dropdown-item" href="salas.html">Sala</a></li>
                   <li><a class="dropdown-item" href="equipamentos.html">Equipamento</a></li>
                   <li><a class="dropdown-item" href="usuarios.html">Usuario</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
               <li class="nav-item">
@@ -46,27 +42,71 @@
       </nav>
       
     <main>
-      <div class="container p-2 my-2">
-        
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center">
-            <h1 class="h1">Manutenção de Equipamentos</h1>
-            <h3>Sistema de Gerenciamento de Reservas</h3>
-          </div>
-          
-          
-          
-        </div>
+      
     </div>
         <div class="container-fluid">
+          <div class="row">
+            <div class="mt-5"></div>
+          </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-8 text-center mt-5">
+                <h1 class="h1">Manutenção de Equipamentos</h1>
+                <h3>Sistema de Gerenciamento de Reservas</h3>
+              </div>
+          </div>
             <div class="row">
                 <div>
                     <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">
                 </div>
                 <div class="mt-2">
-                    <button class="btn btn-success btn-sm" onclick="window.location.href='NewEquipamento.html'">Novo equipamento</button>
+                  <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#inserirEquipamento">
+                    Novo Equipamento
+                  </button>
                 </div>
             </div>
+        </div>
+
+        <div class="modal" id="inserirEquipamento">
+          <div class="modal-dialog">
+            <div class="modal-content">
+        
+              <!-- Modal Header -->
+              <div class="modal-header  bg-dark">
+                <h4 class="modal-title text-white">Novo Equipamento</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+        
+              <!-- Modal body -->
+              <div class="modal-body">
+                <form id="formNovoEquipamento" method="POST" action="controller/equipamentoCont.php">
+                  
+                  <input type="hidden" name="acao" id="acao" value="novoEquipamento">
+                  <div class="form-control">
+                    <div>
+                      <label class="form-label mt-3 mb-3" for="tipo">Tipo:</label>
+                      <input class="form-control" type="text" id="tipo" name="tipo" required>
+                    </div>
+                    <div>
+                      <label class="form-label mt-3" for="marca">Marca:</label>
+                      <input class="form-control" type="text" id="marca" name="marca" required>
+                    </div>
+                    <div>
+                      <label class="form-label mt-3" for="config">Descrição:</label>
+                      <textarea class="form-control" type="text" id="config" name="config" required></textarea>
+                    </div>
+                    <input class="btn btn-sm btn-success mt-3" type="submit" value="Inserir">
+                    <button type="button" class="btn btn-danger btn-sm mt-3" data-bs-dismiss="modal">Fechar</button>
+                  </div>
+                </form>
+              </div>
+        
+              <!-- Modal footer -->
+              <div class="modal-footer">
+               
+              </div>
+        
+            </div>
+          </div>
         </div>
         
         <div class="container-fluid mt-3">
