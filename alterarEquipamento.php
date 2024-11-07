@@ -1,3 +1,10 @@
+<?php 
+    include_once( "controller/EquipamentoCont.php");
+    $controle = New EquipamentoCont;
+    $equipamento =$controle->pegarPorId();
+    
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,7 +22,7 @@
             <input type="hidden" name="acao" id="acao" value="alterarEquipamento">
             <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']; ?>">
             <label for="tipo">Tipo:</label>
-            <input type="text" id="tipo" name="tipo" required><br><br>
+            <input type="text" id="tipo" name="tipo" value="<?php echo "" ;?>" required><br><br>
 
             <label for="marca">Marca:</label>
             <input type="text" id="marca" name="marca" required><br><br>

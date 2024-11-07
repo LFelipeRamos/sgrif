@@ -1,6 +1,6 @@
 <?php
-    include_once("../util/conexao.php");
-    include_once("../dao/equipamentoDao.php");
+    include_once "../util/conexao.php";
+    include_once "../dao/equipamentoDao.php";
     class EquipamentoCont{
         function inserirEquipamento(){
             $equipamento = New Equipamento();
@@ -27,23 +27,29 @@
             $dao->excluirEquipamento($equipamento);
         }
 
+        function pegarPorId(){
+            $equipamento = New Equipamento();
+            $equipamento-> id = $_GET["id"];
+            $dao = New EquipamentoDao();
+            $data =$dao->pegarPorId($equipamento);
+            return($data);
+        }
+
     }
 
 
     $controle = new EquipamentoCont();
-        #recebe pela url GET
-    if (isset( $_GET["acao"])) {
-        $acao = $_GET["acao"];
+        
+    if (isset( $_REQUEST["acao"])) {
+        $acao = $_REQUEST["acao"];
         if ($acao == "excluirEquipamento") {
-        $controle->excluirEquipamento();
-        }
-    }else {#recebe pelo form POST
-        $acao = $_POST["acao"];
-        if($acao == "novoEquipamento"){
-        $controle->inserirEquipamento();
+            $controle->excluirEquipamento();
+        }else if($acao == "novoEquipamento"){
+            $controle->inserirEquipamento();
         }elseif ($acao == "alterarEquipamento") {
-        $controle->alterarEquipamento();
-        }
+            $controle->alterarEquipamento();
+            }
     }
 
+    
 ?>

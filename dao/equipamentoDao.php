@@ -1,6 +1,6 @@
 <?php
-    include_once("../model/equipamento.php");
-    include_once("../util/conexao.php");
+    include_once "../model/equipamento.php";
+    include_once "../util/conexao.php";
     class EquipamentoDao{
         function inserirEquipamento(Equipamento $equipamento){
             $parametros = array(
@@ -48,6 +48,19 @@
             } catch (PDOException $e) {
                 echo "<script>alert('Erro ao alterar equipamento: " . $e->getMessage() . "'); window.location.href='../equipamentos.html';</script>";
             }
+        }
+
+        function pegarPorId( Equipamento $equipamento){
+            $parametros = Array(
+                ":id" => $equipamento-> id
+            );
+            $query = "select * from equipamento where id = :id";
+            $stmt = Conexao::executarComParametros($query, $parametros);
+             return $equipamento = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+              
+        
+        
         }
     }
 ?>
