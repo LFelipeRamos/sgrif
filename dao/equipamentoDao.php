@@ -12,9 +12,9 @@
             values (:tipo, :marca, :config)";
             try {
                 Conexao::executarComParametros($query, $parametros);
-                echo "<script>alert('Equipamento adicionado com sucesso!'); window.location.href='../Equipamentos.html';</script>";
+                echo "<script>alert('Equipamento adicionado com sucesso!'); window.location.href='../view/Equipamentos.php';</script>";
             } catch (PDOException $e) {
-                echo "<script>alert('Erro ao adicionar equipamento: " . $e->getMessage() . "'); window.location.href='../newEquipamento.html';</script>";
+                echo "<script>alert('Erro ao adicionar equipamento: " . $e->getMessage() . "'); window.location.href='../view/newEquipamento.html';</script>";
         }
         }
 
@@ -27,9 +27,9 @@
         
             try {
                 Conexao::executarComParametros($query, $parametros);
-                echo "<script>alert('Equipamento excluído com sucesso!'); window.location.href='../Equipamentos.html';</script>";
+                echo "<script>alert('Equipamento excluído com sucesso!'); window.location.href='../view/Equipamentos.php';</script>";
             } catch (PDOException $e) {
-                echo "<script>alert('Erro ao excluir equipamento! o equipamento não pode ser excluído pois está vinculado a uma sala'); window.location.href='../Equipamentos.html';</script>";
+                echo "<script>alert('Erro ao excluir equipamento! o equipamento não pode ser excluído pois está vinculado a uma sala'); window.location.href='../view/Equipamentos.php';</script>";
             }
         }
 
@@ -44,9 +44,9 @@
             $query = "update equipamento SET tipo= :tipo, marca = :marca, config = :config where idEquipamento = :id";
             try {
                 Conexao::executarComParametros($query, $parametros);
-                echo "<script>alert('Equipamento alterado com sucesso!'); window.location.href='../equipamentos.html';</script>";
+                echo "<script>alert('Equipamento alterado com sucesso!'); window.location.href='../view/equipamentos.html';</script>";
             } catch (PDOException $e) {
-                echo "<script>alert('Erro ao alterar equipamento: " . $e->getMessage() . "'); window.location.href='../equipamentos.html';</script>";
+                echo "<script>alert('Erro ao alterar equipamento: " . $e->getMessage() . "'); window.location.href='../view/equipamentos.html';</script>";
             }
         }
 
@@ -54,13 +54,18 @@
             $parametros = Array(
                 ":id" => $equipamento-> id
             );
-            $query = "select * from equipamento where id = :id";
+            $query = "select * from equipamento where idEquipamento = :id";
             $stmt = Conexao::executarComParametros($query, $parametros);
-             return $equipamento = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-              
+             return $equipamento = $stmt->fetchAll(PDO::FETCH_ASSOC);        
+        }
+        function getEquipamento($equipamento){
         
+            // Prepara a consulta com proteção contra SQL Injection
+            $query = "SELECT idEquipamento, tipo, marca, config FROM equipamento";
         
+            $stmt=Conexao::executar($query);
+            $equipamento = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $equipamento;
         }
     }
 ?>

@@ -4,48 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sala-Equipamento</title>
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed" >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">SGRIF</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="home.php" href="#">Tela inicial</a>
-              </li>
-              
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Gerênciar
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Reserva</a></li>
-                  <li><a class="dropdown-item" href="salas.html">Sala</a></li>
-                  <li><a class="dropdown-item" href="equipamentos.html">Equipamento</a></li>
-                  <li><a class="dropdown-item" href="usuarios.html">Usuario</a></li>
-                  
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Instituto Federal do Parana - Campus jacarezinho</a>
-              </li>
-            </ul>
-            
-          </div>
-        </div>
-      </nav>
+  <?php include_once "../partials/partialsNav.php";?>
     
     <main>
-        <div  class="container-fluid" id="fomularioEquipamentoSala" >
-            <form method="post" action="controller/equipamentoSalaCont.php" >
+    <div class="container-fluid">
+          <div class="row">
+            <div class="mt-5"></div>
+          </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-8 text-center mt-5">
+                <h1 class="h1" id="telaNome"></h1>
+                <h3>Sistema de Gerenciamento de Reservas</h3>
+              </div>
+          </div>
+            <div class="row">
+                <div>
+                    <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">
+                </div>
+                <div class="mt-2">
+                  <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#inserirEquipamento">
+                    Inserir Equipamento
+                  </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="inserirEquipamento">
+          <div class="modal-dialog">
+            <div class="modal-content">
+        
+              <!-- Modal Header -->
+              <div class="modal-header  bg-dark">
+                <h4 class="modal-title text-white">Inserir Equipamento</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+        
+              <!-- Modal body -->
+              <div class="modal-body">
+              <form method="post" action="../controller/equipamentoSalaCont.php" >
                 <input type="hidden" name="acao" value="inserirEquipamento">
-                <input type="hidden" name="idSala" value = "1">
+                <input type="hidden" name="idSala" value = "<?php echo $_GET["id"]?>">
 
                 <div class="form-control">
                     <div class="mt-3 mb-3"></div>
@@ -63,10 +65,23 @@
                         <label class="form-label" for="quantidadeOperavel">Quantidade operavel:</label>
                         <input class="form-control" type="number" name="quantidadeOperavel" id="quantidadeOperavel" required>
                     </div>
-                   <input type="submit" value="inserir" class="btn btn-success mt-2 mb-2">
+                   <input type="submit" value="inserir" class="btn btn-sm btn-success mt-3">
+                   <button type="button" class="btn btn-danger btn-sm mt-3" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </form>
+              </div>
+              
+              <!-- Modal footer -->
+              <div class="modal-footer">
+               
+              </div>
+        
+            </div>
+          </div>
         </div>
+        
+           
+      </div>
         <div class="container-fluid mt-3">
             <table class="table table-houver table-sm" id="table">
                 <thead class="table-dark">
@@ -91,7 +106,7 @@
     <footer></footer>
     <script type="module">
     document.addEventListener('DOMContentLoaded', function() {
-        fetch('get_equipamentos.php')
+        fetch('../controller/equipamentoCont.php?acao=getEquipamento')
             .then(response => response.json())
             .then(data => {
                 let select = document.getElementById('selectEquipamento');
@@ -108,7 +123,7 @@
     
 
     document.addEventListener('DOMContentLoaded', function() {
-            fetch('controller/equipamentoSalaCont.php?id=<?php echo $_GET["id"]?>&acao=getEquipamentoSala')
+            fetch('../controller/equipamentoSalaCont.php?id=<?php echo $_GET["id"]?>&acao=getEquipamentoSala')
                 .then(response => response.json())
                 .then(data => {
                     let tabela = document.getElementById('corpoTabela');
@@ -119,7 +134,7 @@
                             <td class="text-center">${eSala.marca}</td>
                             <td class="text-center">${eSala.qtdeOperavel}</td>
                             <td class="text-center">${eSala.qtdeTotal}</td>
-                            <td class="text-center"><button class ="btn btn-houver btn-danger btn-sm" onclick = "window.location.href='controller/equipamentoSalaCont.php?id=${eSala.idSala}&acao=excluirEquipamento&idEquipamento=${eSala.idEquipamento}'">Excluir</button>
+                            <td class="text-center"><button class ="btn btn-houver btn-danger btn-sm" onclick = "window.location.href='../controller/equipamentoSalaCont.php?id=${eSala.idSala}&acao=excluirEquipamento&idEquipamento=${eSala.idEquipamento}'">Excluir</button>
                             </td>
                         `;
                         tabela.appendChild(linha);
@@ -127,8 +142,22 @@
                 });
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../controller/SalaCont.php?id=<?php echo $_GET["id"]?>&acao=pegarPorId')
+                .then(response => response.json())
+                .then(data => {
+                    let nome = document.getElementById('telaNome');
+                    data.forEach(sala => {
+                        let linha = document.createElement('h1');
+                        linha.innerHTML =`  Equipamentos - ${sala.nome}`;
+                        nome.appendChild(linha);
+                    });
+                });
+        });
+        
+
 </script>
-<script src="style/Script.js"></script>
-<script src="style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+<script src="../style/Script.js"></script>
+<script src="../style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

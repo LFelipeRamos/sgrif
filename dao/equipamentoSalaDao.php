@@ -13,9 +13,9 @@
             values (:idSala, :idEquipamento, :qtdeTotal, :qtdeOperavel )";
             try {
                 Conexao::executarComParametros($query, $parametros);
-                echo "<script>alert('Equipamento adicionado com sucesso!'); window.location.href='../equipamentoSala.php?id=".$parametros['idSala']."';</script>";
+                echo "<script>alert('Equipamento adicionado com sucesso!'); window.location.href='../view/equipamentoSala.php?id=".$parametros['idSala']."';</script>";
             } catch (PDOException $e) {
-                echo "<script>alert('|".$parametros["idSala"]."|Erro ao adicionar equipamento: " . $e->getMessage() . "'); window.location.href='../equipamentoSala.php';</script>";
+                echo "<script>alert('|".$parametros["idSala"]."|Erro ao adicionar equipamento: " . $e->getMessage() . "'); window.location.href='../view/equipamentoSala.php';</script>";
         }
         }
 

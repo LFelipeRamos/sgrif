@@ -7,7 +7,7 @@
             $Usuario-> nome = $_POST["nome"];
             $Usuario-> tipo = $_POST["tipo"];
             $Usuario-> email = $_POST["email"];
-            $Usuario-> senha = $_POST["senha"];
+            //$Usuario-> senha = $_POST["senha"];
             $dao = new UsuarioDao();
             $dao->inserirUsuario($Usuario);
         }
@@ -28,23 +28,38 @@
             $dao = New UsuarioDao();
             $dao->excluirUsuario($Usuario);
         }
+        function getUsuario(){
+
+            $usuario = New Usuario();
+            $dao = New UsuarioDao();
+            $data = $dao->getusuario($usuario);
+            echo json_encode($data);
+    }
+    function pegarPorId(): array{
+        $usuario = New Usuario();
+        $usuario-> id = $_GET["id"];
+        $dao = New usuarioDao();
+        $data =$dao->pegarPorId($usuario);
+        return ($data);
+    }
 
     }
 
 
     $controle = new UsuarioCont();
         #recebe pela url GET
-    if (isset( $_GET["acao"])) {
-        $acao = $_GET["acao"];
+    if (isset( $_REQUEST["acao"])) {
+        $acao = $_REQUEST["acao"];
         if ($acao == "excluirUsuario") {
         $controle->excluirUsuario();
-        }
-    }else {#recebe pelo form POST
-        $acao = $_POST["acao"];
-        if($acao == "novoUsuario"){
+        }elseif($acao == "novoUsuario"){
         $controle->inserirUsuario();
         }elseif ($acao == "alterarUsuario") {
         $controle->alterarUsuario();
+        }elseif($acao =="getUsuario"){
+            $controle->getUsuario();
+        }elseif($acao=="pegarPorId"){
+            $controle->pegarPorId();
         }
     }
 

@@ -60,5 +60,21 @@ function filtrarTabela() {
             }
         }
     }
-}
+};
 
+function mostrarElemento() {
+    // Seleciona o checkbox e o elemento a ser exibido/escondido
+    var checkbox = document.querySelector("#mostrar");
+    var container = document.querySelector("#repete");
+
+    // Adiciona um listener para o evento 'change'
+    checkbox.addEventListener('change', function() {
+        if (checkbox.checked) {
+            // Mostra o elemento
+            container.classList.remove("hidden");
+        } else {
+            // Esconde o elemento
+            container.classList.add("hidden");
+        }
+    });
+}

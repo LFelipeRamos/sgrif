@@ -1,56 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Salas</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed" >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">SGRIF</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="home.php" href="#">Tela inicial</a>
-              </li>
-            
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Gerênciar
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Reserva</a></li>
-                  <li><a class="dropdown-item" href="salas.html">Sala</a></li>
-                  <li><a class="dropdown-item" href="equipamentos.html">Equipamento</a></li>
-                  <li><a class="dropdown-item" href="usuarios.html">Usuario</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Instituto Federal do Parana - Campus jacarezinho</a>
-              </li>
-            </ul>
-            
-          </div>
-        </div>
-      </nav>
-    
+  <?php include_once ("../partials/partialsNav.php")?>
     <main>
-      <div class="container p-2 my-2">
-        
+      <div class="container-fluid">
+        <div class="row">
+          <div class="mt-5"></div>
+        </div>
         <div class="row justify-content-center">
-          <div class="col-lg-8 text-center">
+          <div class="col-lg-8 text-center mt-5">
             <h1 class="h1">Manutenção de Salas</h1>
             <h3>Sistema de Gerenciamento de Reservas</h3>
           </div>
         </div>
-    </div>
-        <div class="container-fluid">
+    
+        
             <div class="row">
                 <div>
                     <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">
@@ -74,7 +45,7 @@
         
               <!-- Modal body -->
               <div class="modal-body">
-                <form id="formNovoEquipamento" method="POST" action="controller/salaCont.php">
+                <form id="formNovaSala" method="POST" action="../controller/salaCont.php">
                   <div class="form-control">
                       <input type="hidden" name="acao" id="acao" value="novaSala">
                       <div class="mt-3 mb-3">
@@ -129,7 +100,7 @@
 
     <script type="module">
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('get_salas.php')
+            fetch('../controller/salaCont.php?acao=getSala')
                 .then(response => response.json())
                 .then(data => {
                     let tabela = document.getElementById('corpoTabela');
@@ -139,9 +110,9 @@
                             <td class="text-center">${sala.nome}</td>
                             <td class="text-center">${sala.localizacao}</td>
                             <td class="text-center">${sala.capacidade}</td>
-                            <td class="text-center"><button class = "btn btn-sm btn-outline-warning btn-houver mb-1 mt-1" onclick = "window.location.href='alterarSala.php?id=${sala.idSala}'">Alterar</button>
-                            <button class = "btn btn-outline-danger btn-sm btn-houver mb-1 mt-1" onclick = "window.location.href='controller/salaCont.php?id=${sala.idSala}&acao=excluirSala'">Excluir</button>
-                            <button class = "btn btn-outline-success btn-sm btn-houver mb-1 mt-1" onclick = "window.location.href='equipamentoSala.php?id=${sala.idSala}'">Inserir Equipamento</button></td>
+                            <td class="text-center"><button class = "btn btn-sm btn-warning btn-houver mb-1 mt-1" onclick = "window.location.href='alterarSala.php?id=${sala.idSala}'">Alterar</button>
+                            <button class = "btn btn-danger btn-sm btn-houver mb-1 mt-1" onclick = "window.location.href='../controller/salaCont.php?id=${sala.idSala}&acao=excluirSala'">Excluir</button>
+                            <button class = "btn btn-success btn-sm btn-houver mb-1 mt-1" onclick = "window.location.href='equipamentoSala.php?id=${sala.idSala}'">Equipamentos</button></td>
                         `;
                         tabela.appendChild(linha);
                     });
@@ -150,7 +121,7 @@
 
         
     </script>
-    <script src="style/Script.js"></script>
-    <script src="style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../style/Script.js"></script>
+    <script src="../style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

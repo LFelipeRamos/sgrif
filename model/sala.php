@@ -1,8 +1,8 @@
 <?php
     class sala{
-        public $id;
+        public $idSala;
         public $nome;
         public $location;
         public $capacidade;
-    };  
+    };
 ?>

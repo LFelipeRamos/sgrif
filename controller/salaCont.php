@@ -12,7 +12,7 @@
         }
         function alterarSala(){
             $sala = New Sala();
-            $sala-> id = $_POST["id"];
+            $sala-> idSala = $_POST["id"];
             $sala-> nome = $_POST["nome"];
             $sala-> location = $_POST["location"];
             $sala-> capacidade = $_POST["capacidade"];
@@ -22,25 +22,40 @@
         
         function excluirSala(){
             $sala = New Sala();
-            $sala-> id = $_GET["id"];
+            $sala-> idSala = $_GET["id"];
             $dao = New SalaDao();
             $dao->excluirSala($sala);
         }
+        function getSala(){
+
+            $sala = New Sala();
+            $dao = New SalaDao();
+            $data = $dao->getSala($sala);
+            echo json_encode($data);
     }
-    $controle = new SalaCont();
-    #recebe pela url GET
-if (isset( $_GET["acao"])) {
-    $acao = $_GET["acao"];
+    function pegarPorId():array{
+        $sala = New Sala();
+        $sala-> idSala = $_GET["id"];
+        $dao = New SalaDao();
+        $data =$dao->pegarPorId($sala);
+        return($data);
+    }
+}
+   
+$controle = new SalaCont();
+if (isset( $_REQUEST["acao"])) {
+    $acao = $_REQUEST["acao"];
     if ($acao == "excluirSala") {
     $controle->excluirSala();
-    }
-}else {#recebe pelo form POST
-    $acao = $_POST["acao"];
-    if($acao == "novaSala"){
+    }elseif($acao == "novaSala"){
     $controle->inserirSala();
     }elseif ($acao == "alterarSala") {
     $controle->alterarSala();
+    }elseif($acao =="getSala"){
+    $controle->getSala();
+    }elseif($acao =='pegarPorId'){
+        $controle->pegarPorId();
     }
-}
+    }
 
 ?>

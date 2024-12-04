@@ -1,54 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de usuario</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed" >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">SGRIF</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="home.php" href="#">Tela inicial</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Gerênciar
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Reserva</a></li>
-                  <li><a class="dropdown-item" href="salas.html">Sala</a></li>
-                  <li><a class="dropdown-item" href="equipamentos.html">Equipamento</a></li>
-                  <li><a class="dropdown-item" href="usuarios.html">Usuario</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Instituto Federal do Parana - Campus jacarezinho</a>
-              </li>
-            </ul>
-            
-          </div>
-        </div>
-      </nav>
+    <?php include_once ("../partials/partialsNav.php")?>
     <main>
-        <div class="container p-2 my-2">
-        
-            <div class="row justify-content-center">
-              <div class="col-lg-8 text-center">
-                <h1 class="h1">Manutenção de Usuários</h1>
-                <h3 class="h3">Sistema de Gerenciamento de Reservas</h3>
-              </div>
-            </div>
         </div>
             <div class="container-fluid">
+              <div class="row">
+                <div class="mt-5"></div>
+              </div>
+               <div class="row justify-content-center">
+                  <div class="col-lg-8 text-center mt-5">
+                  <h1 class="h1">Manutenção de Usuários</h1>
+                  <h3 class="h3">Sistema de Gerenciamento de Reservas</h3>
+              </div>
                 <div class="row">
                     <div>
                         <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">
@@ -71,7 +42,7 @@
             
                   <!-- Modal body -->
                   <div class="modal-body">
-                    <form id="formNovoUsuario" method="POST" action="controller/usuarioCont.php">
+                    <form id="formNovoUsuario" method="POST" action="../controller/usuarioCont.php">
                       <div class="form-control ">
                         <input type="hidden" name="acao" id="acao" value="novoUsuario">
                         <div class="mt-3 mb-3">
@@ -86,10 +57,7 @@
                           <label class="form-label" for="email">E-mail:</label>
                           <input class="form-control" type="email" id="email" name="email" required>
                         </div>
-                        <div class="mt-3">
-                          <label class="form label" for="senha">Senha:</label>
-                          <input class="form-control" type="password" id="senha" name="senha" required>
-                        </div>
+                    
                         
                         <input type="submit" class="btn btn-houver btn-success btn-sm mt-3" value="inserir">
                         <button type="button" class="btn btn-danger btn-sm mt-3" data-bs-dismiss="modal">Fechar</button>
@@ -134,7 +102,7 @@
     </div>
     <script type="module">
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('get_usuario.php')
+            fetch('../controller/usuarioCont.php?acao=getUsuario')
                 .then(response => response.json())
                 .then(data => {
                     let tabela = document.getElementById('corpoTabela');
@@ -145,7 +113,7 @@
                             <td class="text-center">${usuario.tipo}</td>
                             <td class="text-center">${usuario.email}</td>
                             <td class="text-center"><button class = "btn btn-houver btn-sm btn-warning" onclick = "window.location.href='alterarUsuario.php?id=${usuario.idUsuario}'">Alterar</button>
-                            <button class = "btn btn-houver btn-sm btn-danger" onclick = "window.location.href='controller/usuarioCont.php?id=${usuario.idUsuario}&acao=excluirUsuario'">Excluir</button>
+                            <button class = "btn btn-houver btn-sm btn-danger" onclick = "window.location.href='../controller/usuarioCont.php?id=${usuario.idUsuario}&acao=excluirUsuario'">Excluir</button>
                             </td>
                         `;
                         tabela.appendChild(linha);
@@ -171,7 +139,7 @@
             });
         });
     </script>
-    <script src="style/Script.js"></script>
-    <script src="style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../style/Script.js"></script>
+    <script src="../style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

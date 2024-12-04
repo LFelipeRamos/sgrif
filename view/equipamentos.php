@@ -1,47 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Equipamentos</title>
 </head>
 <body> 
-   
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">SGRIF</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="home.php" href="#">Tela inicial</a>
-              </li>
-              
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Gerênciar
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Reserva</a></li>
-                  <li><a class="dropdown-item" href="salas.html">Sala</a></li>
-                  <li><a class="dropdown-item" href="equipamentos.html">Equipamento</a></li>
-                  <li><a class="dropdown-item" href="usuarios.html">Usuario</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Instituto Federal do Parana - Campus jacarezinho</a>
-              </li>
-            </ul>
-            
-          </div>
-        </div>
-      </nav>
-      
-    <main>
+   <?php include_once ("../partials/partialsNav.php")?>
+     <main>
       
     </div>
         <div class="container-fluid">
@@ -78,7 +46,7 @@
         
               <!-- Modal body -->
               <div class="modal-body">
-                <form id="formNovoEquipamento" method="POST" action="controller/equipamentoCont.php">
+                <form id="formNovoEquipamento" method="POST" action="../controller/equipamentoCont.php">
                   
                   <input type="hidden" name="acao" id="acao" value="novoEquipamento">
                   <div class="form-control">
@@ -133,7 +101,7 @@
     </div>
     <script type="module">
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('get_equipamentos.php')
+            fetch('../controller/equipamentoCont.php?acao=getEquipamento')
                 .then(response => response.json())
                 .then(data => {
                     let tabela = document.getElementById('corpoTabela');
@@ -143,8 +111,8 @@
                             <td class="text-center">${equipamento.tipo}</td>
                             <td class="text-center">${equipamento.marca}</td>
                             <td class="text-center">${equipamento.config}</td>
-                            <td class="text-center"><button class = "btn btn-sm btn-outline-warning btn-houver mb-1 mt-1" onclick = "window.location.href='alterarEquipamento.php?id=${equipamento.idEquipamento}'">Alterar</button>
-                            <button class = "btn btn-outline-danger btn-sm btn-houver mb-1 mt-1" onclick = "window.location.href='controller/equipamentoCont.php?id=${equipamento.idEquipamento}&acao=excluirEquipamento'">Excluir</button>
+                            <td class="text-center"><button class = "btn btn-sm btn-warning btn-houver mb-1 mt-1" onclick = "window.location.href='alterarEquipamento.php?id=${equipamento.idEquipamento}'">Alterar</button>
+                            <button class = "btn btn-danger btn-sm btn-houver mb-1 mt-1" onclick = "window.location.href='../controller/equipamentoCont.php?id=${equipamento.idEquipamento}&acao=excluirEquipamento'">Excluir</button>
                             </td>
                         `;
                         tabela.appendChild(linha);
@@ -170,8 +138,8 @@
             });
         });
     </script>
-    <script src="style/Script.js"></script>
-    <script src="style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../style/Script.js"></script>
+    <script src="../style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

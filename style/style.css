@@ -42,3 +42,6 @@ body{
 .cookie-consent .btn:hover {
     background-color: #e6b800;
 }
+.hidden {
+    display: none;
+}

@@ -1,5 +1,6 @@
 <?php
     include_once "../util/conexao.php";
+    include_once "../model/equipamento.php";
     include_once "../dao/equipamentoDao.php";
     class EquipamentoCont{
         function inserirEquipamento(){
@@ -27,12 +28,22 @@
             $dao->excluirEquipamento($equipamento);
         }
 
-        function pegarPorId(){
+        function pegarPorId(): array{
             $equipamento = New Equipamento();
             $equipamento-> id = $_GET["id"];
             $dao = New EquipamentoDao();
             $data =$dao->pegarPorId($equipamento);
-            return($data);
+            return ($data);
+        }
+        function getEquipamento(){
+
+            $equipamento = New Equipamento();
+            $dao = New EquipamentoDao();
+            $data = $dao->getEquipamento($equipamento);
+            echo json_encode($data);
+            
+            
+     
         }
 
     }
@@ -46,8 +57,10 @@
             $controle->excluirEquipamento();
         }else if($acao == "novoEquipamento"){
             $controle->inserirEquipamento();
-        }elseif ($acao == "alterarEquipamento") {
+        }else if ($acao == "alterarEquipamento") {
             $controle->alterarEquipamento();
+        }else if($acao == "getEquipamento"){
+            $controle->getEquipamento();
             }
     }
 

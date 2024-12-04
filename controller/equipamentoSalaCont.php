@@ -18,7 +18,7 @@
             $eSala->idEquipamento = $_GET["idEquipamento"];
             $dao = new EquipamentoSalaDao();
             $dao->excluirEquipamento($eSala);
-            header("Location: ../equipamentoSala.php?id=" . $eSala->idSala);
+            header("Location: ../view/equipamentoSala.php?id=" . $eSala->idSala);
         }
   
         
