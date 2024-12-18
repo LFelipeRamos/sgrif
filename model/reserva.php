@@ -7,6 +7,5 @@
         public $dataReserva;
         public $inicioReserva;
         public $fimReserva;
-        public $periodicidade;
     }
 ?>

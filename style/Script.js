@@ -1,3 +1,4 @@
+
 function ordenarTabela(indiceColuna) {
     var tabela, linhas, trocando, i, celulaAtual, celulaProxima, deveTrocar, direcao, contadorTrocas = 0;
     tabela = document.getElementById("table");
@@ -64,17 +65,36 @@ function filtrarTabela() {
 
 function mostrarElemento() {
     // Seleciona o checkbox e o elemento a ser exibido/escondido
-    var checkbox = document.querySelector("#mostrar");
+    var checkbox = document.querySelector("#tipo");
     var container = document.querySelector("#repete");
+    
 
     // Adiciona um listener para o evento 'change'
     checkbox.addEventListener('change', function() {
         if (checkbox.checked) {
-            // Mostra o elemento
+            
             container.classList.remove("hidden");
+            
         } else {
-            // Esconde o elemento
+            
             container.classList.add("hidden");
+           
         }
+    });
+};
+function checkTipo() {
+    // Seleciona o elemento checkbox pelo ID
+    var checkbox = document.querySelector("#tipo");
+
+    // Adiciona um evento para monitorar alterações no checkbox
+    checkbox.addEventListener('change', function () {
+        // Verifica se o checkbox está marcado
+        let tipo = checkbox.checked ? "repete" : "único";
+        
+        // Exibe o valor atual no console (ou realiza outra ação)
+        console.log("O tipo é:", tipo);
+        
+        // Opcional: Atualize alguma parte do DOM ou envie para o backend
+        // Por exemplo: document.getElementById("output").innerText = tipo;
     });
 }

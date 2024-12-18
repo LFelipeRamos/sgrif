@@ -11,12 +11,7 @@
             );
             $query = "insert into Usuario (nome, tipo, email)
             values (:nome, :tipo, :email)";
-            try {
-                Conexao::executarComParametros($query, $parametros);
-                echo "<script>alert('Usuario adicionado com sucesso!'); window.location.href='../view/Usuarios.html';</script>";
-            } catch (PDOException $e) {
-                echo "<script>alert('Erro ao adicionar Usuario: " . $e->getMessage() . "'); window.location.href='../view/newUsuario.html';</script>";
-        }
+            Conexao::executarComParametros($query, $parametros);
         }
 
         function excluirUsuario(Usuario $usuario) {
@@ -25,13 +20,7 @@
                 "idUsuario" => $usuario->id
             );
             $query = "DELETE FROM Usuario WHERE idUsuario = :idUsuario";
-        
-            try {
-                Conexao::executarComParametros($query, $parametros);
-                echo "<script>alert('Usuario excluído com sucesso!'); window.location.href='../view/Usuarios.html';</script>";
-            } catch (PDOException $e) {
-                echo "<script>alert('Erro ao excluir Usuario: " . $e->getMessage() . "'); window.location.href='../view/Usuarios.html';</script>";
-            }
+            Conexao::executarComParametros($query, $parametros);
         }
 
         function alterarUsuario(Usuario $usuario){
@@ -44,24 +33,20 @@
             );
             
             $query = "update Usuario SET nome= :nome, tipo = :tipo, email = :email where idUsuario = :id";
-            try {
-                Conexao::executarComParametros($query, $parametros);
-                echo "<script>alert('Usuario alterado com sucesso!'); window.location.href='../view/usuarios.html';</script>";
-            } catch (PDOException $e) {
-                echo "<script>alert('Erro ao alterar Usuario: " . $e->getMessage() . "'); window.location.href='../view/usuarios.html';</script>";
-            }
+            Conexao::executarComParametros($query, $parametros);
+            
         }
         function getUsuario($usuario): array{
         
             // Prepara a consulta com proteção contra SQL Injection
-            $query = "SELECT * FROM usuario";
+            $query = "SELECT * FROM usuario ORDER BY nome ASC";
         
             $stmt=Conexao::executar($query);
             $usuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $usuario;
         }
         function pegarPorId( Usuario $usuario): array  {
-            $parametros = Array(
+            $parametros = array(
                 ":id" => $usuario-> id
             );
             $query = "select * from usuario where idUsuario = :id";

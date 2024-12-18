@@ -20,6 +20,7 @@
                   <h1 class="h1">Manutenção de Usuários</h1>
                   <h3 class="h3">Sistema de Gerenciamento de Reservas</h3>
               </div>
+              <?php include_once("../partials/partialsAlert.php")?>
                 <div class="row">
                     <div>
                         <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">

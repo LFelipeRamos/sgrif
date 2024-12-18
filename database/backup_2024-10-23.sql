@@ -26,14 +26,13 @@ CREATE TABLE IF NOT EXISTS `equipamento` (
   `tipo` varchar(255) NOT NULL,
   `config` varchar(255) NOT NULL,
   PRIMARY KEY (`idEquipamento`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela sgrif.equipamento: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela sgrif.equipamento: ~4 rows (aproximadamente)
 INSERT INTO `equipamento` (`idEquipamento`, `marca`, `tipo`, `config`) VALUES
 	(5, 'Daten', 'Computador', 'Ryzen 5 2500; gtx 710; 8GB Ram.'),
 	(6, 'HP', 'Computador', 'Intel i5 3400h'),
 	(7, '-', 'Lousa de vidro', '-'),
-	(8, '-', 'Lousa Verde', '-'),
 	(9, '-', 'Projetor', '-');
 
 -- Copiando estrutura para tabela sgrif.equipamento_sala
@@ -83,13 +82,13 @@ CREATE TABLE IF NOT EXISTS `reserva` (
   KEY `fk_reserva_sala1_idx` (`idSala`),
   CONSTRAINT `fk_reserva_sala1` FOREIGN KEY (`idSala`) REFERENCES `sala` (`idSala`),
   CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Copiando dados para a tabela sgrif.reserva: ~3 rows (aproximadamente)
 INSERT INTO `reserva` (`idReserva`, `idUsuario`, `idSala`, `tipo`, `dataReserva`, `inicioReserva`, `fimReserva`) VALUES
-	(2, 2, 3, 'teste', '0000-00-00', '0000-00-00', '0000-00-00'),
-	(3, 2, 3, 'teste', '0000-00-00', '0000-00-00', '0000-00-00'),
-	(4, 2, 3, 'teste', '0000-00-00', '0000-00-00', '0000-00-00');
+	(11, 2, 5, 'Recorrente', '2024-12-18', '2025-02-01', '2025-08-01'),
+	(13, 4, 6, 'Recorrente', '2024-12-14', '2025-02-01', '2026-02-01'),
+	(40, 12, 6, 'Recorrente', '2024-12-18', '2025-02-01', '2025-08-01');
 
 -- Copiando estrutura para tabela sgrif.sala
 CREATE TABLE IF NOT EXISTS `sala` (
@@ -131,13 +130,18 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `senha` varchar(45) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela sgrif.usuario: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela sgrif.usuario: ~8 rows (aproximadamente)
 INSERT INTO `usuario` (`idUsuario`, `nome`, `tipo`, `email`, `senha`) VALUES
 	(2, 'Heber Renato Fadel de Morais ', 'Professor', 'heber.moraes@ifpr.edu.br', ''),
-	(3, 'Lafaiete Rosa Leme', 'Professor', 'lafaiete.leme@ifpr.edu.br', ''),
-	(4, 'Estevan Costa', 'Professor', 'estevan.costa@ifpr.edu.br', '');
+	(4, 'Estevan Costa', 'Professor', 'estevan.costa@ifpr.edu.br', ''),
+	(7, 'Elismar Vicente dos Reis', 'Professor', 'elismar.reis@ifpr.edu.br', ''),
+	(8, 'Arlindo Luis Marcon Junio', 'Professor', 'arlindo.junior@ifpr.edu.br', ''),
+	(9, 'Bruno Guaringue Trindade', 'Professor', 'bruno.trindade@ifpr.edu.br', ''),
+	(11, 'Fabricio Baptista	', 'Professor', 'fabricio.baptista@ifpr.edu.br', ''),
+	(12, 'Luís Henrique Pupo Maron', 'Professor', 'luis.maron@ifpr.edu.br', ''),
+	(13, 'Marcia Cristina dos Reis', 'Professora', 'marcia.reis@ifpr.edu.br', '');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

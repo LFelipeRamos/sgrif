@@ -19,6 +19,7 @@
             <h1 class="h1">Manutenção de Reservas</h1>
             <h3>Sistema de Gerenciamento de Reservas</h3>
           </div>
+          <?php include_once("../partials/partialsAlert.php")?>
       </div>
         <div class="row">
             <div>
@@ -31,7 +32,7 @@
             </div>
         </div>
     </div>
-
+   
     <div class="modal" id="novaReserva">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -47,11 +48,12 @@
             <form id="formNovaReserva" method="POST" action="../controller/reservaCont.php">
               <div class="form-control">
               <input type="hidden" name="acao" id="acao" value="novaReserva">
+              <input type="hidden" name="dataReserva" id="dataReserva" value="<?php  echo date( 'Y-m-d')?>">
               <div class="row">
                 <div>
                     <label class="form-label" for="selectSala">Sala:</label>
                     <select class="form-select" name="selectSala" id="selectSala" required> 
-                      <option value="Selecione uma Sala">Selecione uma Sala</option>
+                      <option value="Selecione uma Sala"  >Selecione uma Sala </option>
                     </select>
                   </div>
                   <div>
@@ -107,34 +109,33 @@
                 </div>
                   <div class="row">
                     <div class="form-check form-switch mt-3 mb-3 ">
-                      <label class="form-check-label" for="mostrar">Repete ?</label>
-                      <input  onclick="mostrarElemento()" class="form-check-input" type="checkbox" role="switch" id="mostrar">
+                    <div class="col-5">
+                        <label class="form-label mt-3" for="dataInicio">Data Inicio:</label>
+                        <input class="form-control" type="date" id="horaInicio" name="dataInicio" >
                     </div>
+                    <div>
+                      <label class="form-check-label" for="tipo">Repete ?</label>
+                      <input  onclick="mostrarElemento()" class="form-check-input" type="checkbox" value="Recorrente" role="switch" id="tipo" name="tipo">
+                      
+                      
+                    </div>
+                  </div>
 
                     <div class="row hidden" id="repete">
                       <div class="col-5">
-                        <label class="form-label mt-3" for="horaInicio">Hora Inicio:</label>
-                        <input class="form-control" type="time" id="horaInicio" name="horaInicio" required>
-                      </div>
-                      <div class="col-5">
-                        <label class="form-label mt-3" for="horaFim">Hora Fim:</label>
-                        <input class="form-control" type="time" id="horaFim" name="horaFim" required>
+                        <label class="form-label mt-3" for="dataFim">Data Fim:</label>
+                        <input class="form-control" type="date" id="horaFim" name="dataFim">
                       </div>
                     </div>
                   </div>
-                  
-
-                <div>
-                  <label class="form-label mt-3" for="config">Descrição:</label>
-                  <textarea class="form-control" type="text" id="config" name="config" required></textarea>
-                </div>
                 <input class="btn btn-sm btn-success mt-3" type="submit" value="Inserir">
+              </form>
                 <button type="button" class="btn btn-danger btn-sm mt-3" data-bs-dismiss="modal">Fechar</button>
               </div>
               </div>
 
             </div>
-            </form>
+            
           </div>
     
           <!-- Modal footer -->
@@ -150,13 +151,9 @@
         <table class="table table-hover table-sm" id="table">
             <thead class="table-dark">
             <tr>
-                <th class="text-center" onclick="ordenarTabela(0)">Usuario</th>
-                <th class="text-center" onclick="ordenarTabela(1)">Sala</th>
+                <th class="text-center" onclick="ordenarTabela(0)">Sala</th>
+                <th class="text-center" onclick="ordenarTabela(1)">Usuario</th>
                 <th class="text-center" onclick="ordenarTabela(2)">Tipo</th>
-                <th class="text-center" onclick="ordenarTabela(3)">Inicio</th>
-                <th class="text-center" onclick="ordenarTabela(4)">Fim</th>
-                <th class="text-center" onclick="ordenarTabela(5)">Periodicidade</th>
-                <th class="text-center" onclick="ordenarTabela(6)">Data-Reserva</th>
 
                 <th class="text-center" >Opções</th>
             </tr>
@@ -205,18 +202,18 @@
 
       //gerar tabela
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('../controller/reservaCont.php?acao=getEquipamento')
+            fetch('../controller/reservaCont.php?acao=getReserva')
                 .then(response => response.json())
                 .then(data => {
                     let tabela = document.getElementById('corpoTabela');
-                    data.forEach(equipamento => {
+                    data.forEach(reserva => {
                         let linha = document.createElement('tr');
                         linha.innerHTML = `
-                            <td class="text-center">${equipamento.tipo}</td>
-                            <td class="text-center">${equipamento.marca}</td>
-                            <td class="text-center">${equipamento.config}</td>
-                            <td class="text-center"><button class = "btn btn-sm btn-warning btn-houver mb-1 mt-1" onclick = "window.location.href='alterarEquipamento.php?id=${equipamento.idEquipamento}'">Alterar</button>
-                            <button class = "btn btn-danger btn-sm btn-houver mb-1 mt-1" onclick = "window.location.href='../controller/equipamentoCont.php?id=${equipamento.idEquipamento}&acao=excluirEquipamento'">Excluir</button>
+                            <td class="text-center">${reserva.salaNome}</td>
+                            <td class="text-center">${reserva.usuNome}</td>
+                            <td class="text-center">${reserva.tipo}</td>
+                            <td class="text-center"><button class = "btn btn-sm btn-warning btn-houver mb-1 mt-1" onclick = "window.location.href='alterarReserva.php?id=${reserva.idReserva}'">Alterar</button>
+                            <button class = "btn btn-danger btn-sm btn-houver mb-1 mt-1" onclick = "window.location.href='../controller/reservaCont.php?id=${reserva.idReserva}&acao=excluirReserva'">Excluir</button>
                             </td>
                         `;
                         tabela.appendChild(linha);
@@ -240,7 +237,7 @@
                 localStorage.setItem('cookiesAccepted', 'true');
                 cookieConsent.style.display = 'none';
             });
-        });
+        });       
     </script>
     <script src="../style/Script.js"></script>
     <script src="../style/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>

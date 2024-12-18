@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Equipamentos</title>
 </head>
-<body> 
+<body>
    <?php include_once ("../partials/partialsNav.php")?>
      <main>
       
-    </div>
+    
         <div class="container-fluid">
+
           <div class="row">
             <div class="mt-5"></div>
           </div>
@@ -22,6 +23,7 @@
                 <h3>Sistema de Gerenciamento de Reservas</h3>
               </div>
           </div>
+          <?php include_once("../partials/partialsAlert.php")?>
             <div class="row">
                 <div>
                     <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">
@@ -63,9 +65,10 @@
                       <textarea class="form-control" type="text" id="config" name="config" required></textarea>
                     </div>
                     <input class="btn btn-sm btn-success mt-3" type="submit" value="Inserir">
+                </form>
                     <button type="button" class="btn btn-danger btn-sm mt-3" data-bs-dismiss="modal">Fechar</button>
                   </div>
-                </form>
+               
               </div>
         
               <!-- Modal footer -->
@@ -94,11 +97,11 @@
         </div>
     </main>
     <aside></aside>
-    <footer></footer>
-    <div id="cookieConsent" class="cookie-consent">
+    <footer><div id="cookieConsent" class="cookie-consent">
         <p>Este site usa cookies para garantir que você tenha a melhor experiência. <a href="#">Saiba mais</a></p>
         <button id="acceptCookies" class="btn">Aceitar</button>
-    </div>
+    </div></footer>
+    
     <script type="module">
         document.addEventListener('DOMContentLoaded', function() {
             fetch('../controller/equipamentoCont.php?acao=getEquipamento')

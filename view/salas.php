@@ -20,7 +20,7 @@
             <h3>Sistema de Gerenciamento de Reservas</h3>
           </div>
         </div>
-    
+        <?php include_once ("../partials/partialsAlert.php")?>
         
             <div class="row">
                 <div>

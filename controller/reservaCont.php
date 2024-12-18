@@ -2,35 +2,75 @@
     include_once "../util/conexao.php";
     include_once "../model/reserva.php";
     include_once "../dao/reservaDao.php";
+    include_once "../model/ocorrencia.php";
     class ReservaCont{
         function inserirReserva(){
+            if (isset($_POST["tipo"])) {
+                $tipo = $_POST["tipo"];
+                $fimReserva = $_POST["dataFim"];
+            }else {
+                $tipo = "Unica";
+                $fimReserva = $_POST["dataInicio"];
+            }
             $reserva = New Reserva();
-            $reserva-> idReserva = $_POST["idReserva"];
-            $reserva-> idSala = $_POST["idSala"];
-            $reserva-> idUsuario = $_POST["idUsuario"];
-            $reserva-> tipo = $_POST["tipo"];
+            $reserva-> idSala = $_POST["selectSala"];
+            $reserva-> idUsuario = $_POST["selectUsuario"];
+            $reserva-> tipo = $tipo;
             $reserva-> dataReserva = $_POST["dataReserva"];
-            $reserva-> inicioReserva = $_POST["inicio"];
-            $reserva-> fimReserva = $_POST["fim"];
-            $reserva-> periodicidade = $_POST["periodicidade"];
+            $reserva-> inicioReserva = $_POST["dataInicio"];
+            $reserva-> fimReserva = $fimReserva;
+        
             $dao = new ReservaDao();
-            $dao->inserirReserva($reserva);
+            try {
+                $dao->inserirReserva($reserva);
+                $_SESSION['mensagem'] = ['sucesso' => 'Reserva inserida com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao inserir Reserva!'. $e->getMessage()];
+            }
+            //header("Location: ocorrenciaCont.php?acao=inserirOcorrencia");
+            header("Location: ../view/reserva.php");
+            exit;
         }
         function alterarReserva(){
+            if (isset($_POST["tipo"])) {
+                $tipo = $_POST["tipo"];
+                $fimReserva = $_POST["dataFim"];
+            }else {
+                $tipo = "Unica";
+                $fimReserva = $_POST["dataInicio"];
+            }
             $reserva = New Reserva();
-            $reserva-> idReserva = $_POST["id"];
-            $reserva-> tipo = $_POST["tipo"];
-            $reserva-> marca = $_POST["marca"];
-            $reserva-> config = $_POST["config"];
+            $reserva-> idReserva = $_GET["id"];
+            $reserva-> idUsuario = $_POST["selectUsuario"];
+            $reserva->idSala = $_POST["selectSala"];
+            $reserva-> tipo = $tipo;
+            $reserva-> dataReserva = $_POST["dataReserva"];
+            $reserva-> inicioReserva = $_POST["dataInicio"];
+            $reserva-> fimReserva = $fimReserva;
             $dao = new ReservaDao();
-            $dao->alterarreserva($reserva);
+            var_dump($reserva);
+            try {
+                $dao->alterarReserva($reserva);
+                $_SESSION['mensagem'] = ['sucesso' => 'Reserva alterada com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao alterar Reserva!'. $e->getMessage()];
+            }
+            header("Location: ../view/reserva.php");
+            exit;
         }
         
         function excluirReserva(){
             $reserva = New reserva();
             $reserva-> idReserva = $_GET["id"];
             $dao = New ReservaDao();
-            $dao->excluirReserva($reserva);
+            try {
+                $dao->excluirReserva($reserva);
+                $_SESSION['mensagem'] = ['sucesso' => 'Reserva excluida com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao excluir Reserva!'. $e->getMessage()];
+            }
+            header("Location: ../view/reserva.php");
+            exit;
         }
 
         function pegarPorId(): array{
@@ -40,14 +80,12 @@
             $data =$dao->pegarPorId($reserva);
             return ($data);
         }
-        function getreserva(){
+        function getReserva(){
 
             $reserva = New reserva();
             $dao = New ReservaDao();
-            $data = $dao->getreserva($reserva);
+            $data = $dao->getReserva($reserva);
             echo json_encode($data);
-            
-            
      
         }
 
@@ -57,16 +95,19 @@
     $controle = new reservaCont();
         
     if (isset( $_REQUEST["acao"])) {
+        session_start();
         $acao = $_REQUEST["acao"];
-        if ($acao == "excluirreserva") {
-            $controle->excluirreserva();
-        }else if($acao == "novoreserva"){
-            $controle->inserirreserva();
-        }else if ($acao == "alterarreserva") {
-            $controle->alterarreserva();
-        }else if($acao == "getreserva"){
-            $controle->getreserva();
-            }
+        if ($acao == "excluirReserva") {
+            $controle->excluirReserva();
+        }else if($acao == "novaReserva"){
+            $controle->inserirReserva();
+        }else if ($acao == "alterarReserva") {
+            $controle->alterarReserva();
+        }else if($acao == "getReserva"){
+            $controle->getReserva();
+        }else if($acao == "pegarPorId"){
+            $controle->pegarPorId();
+        }
     }
 
     

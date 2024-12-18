@@ -7,9 +7,16 @@
             $Usuario-> nome = $_POST["nome"];
             $Usuario-> tipo = $_POST["tipo"];
             $Usuario-> email = $_POST["email"];
-            //$Usuario-> senha = $_POST["senha"];
+            
             $dao = new UsuarioDao();
-            $dao->inserirUsuario($Usuario);
+            try {
+                $dao->inserirUsuario($Usuario);
+                $_SESSION['mensagem'] = ['sucesso' => 'Usuário inserido com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao inserir Usuario!'];
+            }
+            header("Location: ../view/usuarios.php");
+            exit;
         }
         function alterarUsuario(){
             $Usuario = New Usuario();
@@ -19,14 +26,28 @@
             $Usuario-> email = $_POST["email"];
             $Usuario-> senha = $_POST["senha"];
             $dao = new UsuarioDao();
-            $dao->alterarUsuario($Usuario);
+            try {
+                $dao->alterarUsuario($Usuario);
+                $_SESSION['mensagem'] = ['sucesso' => 'Usuário alterado com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao alterar Usuario!'];
+            }
+            header("Location: ../view/usuarios.php");
+            exit;
         }
         
         function excluirUsuario(){
             $Usuario = New Usuario();
             $Usuario-> id = $_GET["id"];
             $dao = New UsuarioDao();
-            $dao->excluirUsuario($Usuario);
+            try {
+                $dao->excluirUsuario($Usuario);
+                $_SESSION['mensagem'] = ['sucesso' => 'Usuário excluído com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao excluir Usuario!'];
+            }
+            header("Location: ../view/usuarios.php");
+            exit;
         }
         function getUsuario(){
 
@@ -49,6 +70,7 @@
     $controle = new UsuarioCont();
         #recebe pela url GET
     if (isset( $_REQUEST["acao"])) {
+        session_start();
         $acao = $_REQUEST["acao"];
         if ($acao == "excluirUsuario") {
         $controle->excluirUsuario();

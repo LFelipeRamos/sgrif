@@ -4,21 +4,35 @@
     class EquipamentoSalaCont{
         function inserirEquipamento(){
             $eSala = New EquipamentoSala();
-            $eSala-> idSala = $_POST["idSala"];
+            $id = $eSala-> idSala = $_POST["idSala"];
             $eSala-> idEquipamento = $_POST["selectEquipamento"];
             $eSala-> qtdeTotal = $_POST["quantidade"];
             $eSala->qtdeOperavel = $_POST["quantidadeOperavel"];
-            
             $dao = new EquipamentoSalaDao();
-            $dao->inserirEquipamento($eSala);
+            
+            try {
+                $dao->inserirEquipamento($eSala);
+                $_SESSION['mensagem'] = ['sucesso' => 'Equipamento adicionado com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao adicionar equipamento: ' . $e->getMessage()];
+            }
+            header("Location: ../view/equipamentoSala.php?id=$id");
+            exit;
         }
         function excluirEquipamento(){
             $eSala = new EquipamentoSala();
-            $eSala->idSala = $_GET["id"];
+            $id = $eSala->idSala = $_GET["id"];
             $eSala->idEquipamento = $_GET["idEquipamento"];
             $dao = new EquipamentoSalaDao();
+
+         try {
             $dao->excluirEquipamento($eSala);
-            header("Location: ../view/equipamentoSala.php?id=" . $eSala->idSala);
+            $_SESSION['mensagem'] = ['sucesso' => 'Equipamento excluído com sucesso!'];
+        } catch (Exception $e) {
+            $_SESSION['mensagem'] = ['erro' => 'Erro ao excluir equipamento!'];
+        }
+        header("Location: ../view/equipamentoSala.php?id=$id");
+        exit;
         }
   
         
@@ -39,16 +53,14 @@
 
     $controle = new EquipamentoSalaCont();
         #recebe pela url GET
-    if (isset( $_GET["acao"])) {
-        $acao = $_GET["acao"];
+    if (isset( $_REQUEST["acao"])) {
+        session_start();
+        $acao = $_REQUEST["acao"];
         if ($acao == "excluirEquipamento") {
         $controle->excluirEquipamento();
-        }if ($acao == "getEquipamentoSala") {
+        }elseif($acao == "getEquipamentoSala") {
             $controle->getEquipamentoSala();
-        }
-    }else {#recebe pelo form POST
-        $acao = $_POST["acao"];
-        if($acao == "inserirEquipamento"){
+        }elseif($acao == "inserirEquipamento"){
         $controle->inserirEquipamento();
         }
     }

@@ -1,11 +1,11 @@
 <?php
 class Conexao {
     public static $conn;
+
     static function conectar() {
         $endereco = "mysql:host=localhost;dbname=sgrif";
         $usuariobd = "root";
         $senhabd = "";
-        self::$conn = new PDO($endereco, $usuariobd, $senhabd);
         try {
             self::$conn = new PDO($endereco, $usuariobd, $senhabd);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -28,6 +28,10 @@ class Conexao {
         $stmt = self::$conn->prepare($query);
         $stmt->execute($parametros);
         return $stmt;
+    }
+
+    static function getUltimoId() {
+        return self::$conn->lastInsertId();
     }
 }
 ?>

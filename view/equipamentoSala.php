@@ -20,7 +20,9 @@
                 <h1 class="h1" id="telaNome"></h1>
                 <h3>Sistema de Gerenciamento de Reservas</h3>
               </div>
-          </div>
+            </div>
+            <?php include_once("../partials/partialsAlert.php")?>
+            
             <div class="row">
                 <div>
                     <input class="form-control-plaintext" type="text" id="barraPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquisar na tabela...">

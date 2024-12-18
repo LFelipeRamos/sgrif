@@ -15,10 +15,18 @@
     <link rel="stylesheet" href="../style/bootstrap-5.3.3-dist/css/bootstrap.min.css">
 </head>
 <body>
-    <header>
-        <h1>Alterar Usuario</h1>
-    </header>
+<?php include_once ("../partials/partialsNav.php")?>
     <main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="mt-5"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center mt-5">
+                <h1 class="h1">Alterar Sala</h1>
+                <h3>Sistema de Gerenciamento de Reservas</h3>
+            </div>
+        </div>
         <form id="alterarUsuario" method="POST" action="../controller/usuarioCont.php">
             <div class="form-control">
                 <input type="hidden" name="acao" id="acao" value="alterarUsuario">
@@ -43,6 +51,7 @@
                 
             </div>
         </form>
+    </div>
     </main>
     <aside></aside>
     <footer></footer>

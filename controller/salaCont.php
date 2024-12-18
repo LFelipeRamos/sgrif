@@ -8,7 +8,15 @@
             $sala-> location = $_POST["location"];
             $sala-> capacidade = $_POST["capacidade"];
             $dao = new salaDao();
-            $dao->inserirSala($sala);
+            
+            try {
+                $dao->inserirSala($sala);
+                $_SESSION['mensagem'] = ['sucesso' => 'Sala adicionada com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao adicionar Sala: ' . $e->getMessage()];
+            }
+            header("Location: ../view/salas.php");
+            exit;
         }
         function alterarSala(){
             $sala = New Sala();
@@ -17,7 +25,15 @@
             $sala-> location = $_POST["location"];
             $sala-> capacidade = $_POST["capacidade"];
             $dao = new SalaDao();
-            $dao->alterarSala($sala);
+            
+            try {
+                $dao->alterarSala($sala);
+                $_SESSION['mensagem'] = ['sucesso' => 'Sala alterada com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao alterar Sala: ' . $e->getMessage()];
+            }
+            header("Location: ../view/salas.php");
+            exit;
         }
         
         function excluirSala(){
@@ -25,6 +41,14 @@
             $sala-> idSala = $_GET["id"];
             $dao = New SalaDao();
             $dao->excluirSala($sala);
+            try {
+                $dao->excluirSala($sala);
+                $_SESSION['mensagem'] = ['sucesso' => 'Sala excluida com sucesso!'];
+            } catch (Exception $e) {
+                $_SESSION['mensagem'] = ['erro' => 'Erro ao excluida Sala: ' . $e->getMessage()];
+            }
+            header("Location: ../view/salas.php");
+            exit;
         }
         function getSala(){
 
@@ -33,17 +57,18 @@
             $data = $dao->getSala($sala);
             echo json_encode($data);
     }
-    function pegarPorId():array{
+    function pegarPorId(): array{
         $sala = New Sala();
         $sala-> idSala = $_GET["id"];
         $dao = New SalaDao();
         $data =$dao->pegarPorId($sala);
-        return($data);
+        return ($data);
     }
 }
    
 $controle = new SalaCont();
 if (isset( $_REQUEST["acao"])) {
+    session_start();
     $acao = $_REQUEST["acao"];
     if ($acao == "excluirSala") {
     $controle->excluirSala();
